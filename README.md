@@ -1,6 +1,7 @@
 🌍 Landmark Detection using TensorFlow
 
 Intelligent Landmark Identification & Classification System
+
 🎯 Project Overview
 This project implements an advanced Landmark Detection and Classification system using Deep Learning techniques in TensorFlow.
 The model is designed to:
@@ -52,8 +53,6 @@ Visual Search Engines
 Location-Based Services
 
 🔧 Local Development
-Setup
-git clone https://github.com/PriyanshiSingh19/landmark-detection-tensorflow.git
 Install Dependencies
 pip install -r requirements.txt
 Run Notebook
@@ -72,3 +71,5 @@ Deploy as a Web Application
 Integrate with Google Maps API
 Optimize model for mobile using TensorFlow Lite
 Build REST API for inference
+
+👩‍💻 Author Priyanshi Singh AI/ML Developer | NLP & Deep Learning
