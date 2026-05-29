@@ -13,14 +13,14 @@ This project explores:
 
 # ⭐ Key Highlights
 
-| Metric                 | Value                  |
-| ---------------------- | ---------------------- |
-| ✅ Landmark Classes     | **7,444**              |
-| ✅ Trainable Parameters | **28.36 Million**      |
-| ✅ Dataset Pipeline     | Custom batch generator |
-| ✅ Framework            | TensorFlow / Keras     |
-| ✅ Architecture         | VGG19 (from scratch)   |
-| ✅ Image Processing     | PIL + NumPy + Pandas   |
+| Metric                 | Value                    |
+| ---------------------- | ------------------------ |
+| ✅ Landmark Classes     | **7,444**                |
+| ✅ Trainable Parameters | **28.36 Million**        |
+| ✅ Dataset Pipeline     | Custom batch generator   |
+| ✅ Framework            | **TensorFlow / Keras**   |
+| ✅ Architecture         | **VGG19 (from scratch)** |
+| ✅ Image Processing     | **PIL + NumPy + Pandas** |
 
 ### 🔑 Core Concepts
 
@@ -48,8 +48,8 @@ While accuracy on this sparse, high-class dataset is naturally constrained, the 
 ## Dataset Source
 
 * Google Landmarks Dataset (subset)
-* Extracted from archived image files
-* Landmark labels mapped via CSV metadata
+* Extracted from archived image files (`images_000.tar`)
+* Landmark labels mapped via CSV metadata (`train.csv`)
 
 ---
 
@@ -59,7 +59,7 @@ While accuracy on this sparse, high-class dataset is naturally constrained, the 
 
 Images stored in multi-level paths:
 
-```text id="9tz7b7"
+```text
 0/0/0/image.jpg
 ```
 
@@ -69,7 +69,7 @@ Implemented checks to skip corrupted or missing files safely.
 
 ### ✅ CSV-to-Image Mapping
 
-Matched metadata entries with physically extracted images.
+Matched metadata entries with physically extracted images (8,266 valid pairs).
 
 ### ✅ Memory-Efficient Loading
 
@@ -79,12 +79,12 @@ Built a custom batch generator to stream images dynamically instead of loading t
 
 # 🧱 Model Architecture
 
-```python id="w3y71d"
+```python
 VGG19 (weights=None, include_top=False)
 
 Architecture:
 - 5 convolutional blocks
-- BatchNormalization
+- BatchNormalization (added after block5_conv4)
 - Flatten()
 - Dense(256, activation='relu')
 - Dropout(0.5)
@@ -132,15 +132,15 @@ The model contains:
 ## Training Strategy
 
 * Manual batch iteration using `train_on_batch`
-* Dynamic image preprocessing
-* Real-time batch loading
+* Dynamic image preprocessing (resize 224×224, normalize)
+* Real-time batch loading from nested folders
 * Generator-based streaming pipeline
 
 ---
 
 # 📊 Technical Insights & Observations
 
-This project highlighted several important deep learning engineering concepts:
+This project highlighted several important deep learning engineering concepts.
 
 ## 🔹 Large Output Spaces are Difficult
 
@@ -177,11 +177,11 @@ Custom generators enabled scalable processing of image datasets without exhausti
 | Category         | Tools & Technologies             |
 | ---------------- | -------------------------------- |
 | Framework        | TensorFlow 2.x, Keras            |
-| Architecture     | VGG19                            |
+| Architecture     | VGG19 (from scratch)             |
 | Data Processing  | Pandas, NumPy, PIL               |
 | Preprocessing    | Resize + normalization           |
 | Environment      | Jupyter Notebook                 |
-| Dataset Handling | CSV parsing + archive extraction |
+| Dataset Handling | CSV parsing + tarfile extraction |
 | Version Control  | Git, GitHub                      |
 
 ---
@@ -196,9 +196,9 @@ Custom generators enabled scalable processing of image datasets without exhausti
 
 ---
 
-## Installation
+## Installation & Run
 
-```bash id="qfr8te"
+```bash
 # Clone repository
 git clone https://github.com/PriyanshiSingh19/Landmark-detection.git
 
@@ -211,31 +211,36 @@ pip install tensorflow pandas numpy matplotlib pillow scikit-learn
 jupyter notebook Landmark-detection.ipynb
 ```
 
-Run all notebook cells to:
+Run all notebook cells. The notebook will:
 
-* extract image subsets,
-* preprocess metadata,
-* build the VGG19 model,
-* and train the classifier.
+* extract images from `images_000.tar`,
+* match CSV labels to extracted images,
+* build and train VGG19 from scratch,
+* and save the model as `trained_model.h5`.
+
+---
+
+## Note
+
+This repository consists of a single Jupyter notebook containing the complete pipeline:
+
+* data extraction,
+* preprocessing,
+* model definition,
+* training,
+* and evaluation.
 
 ---
 
 # 📁 Project Structure
 
-```text id="aj94z1"
+```text
 Landmark-detection/
 │
-├── Landmark-detection.ipynb
-├── requirements.txt
-│
-├── data/
-│   ├── train/
-│   └── validation/
-│
-├── models/
-│   └── trained_model.h5
-│
-└── README.md
+├── Landmark-detection.ipynb   # Complete project (code + output)
+├── train.csv                  # Original labels (required)
+├── images_000.tar             # Image archive (required)
+└── trained_model.h5           # Saved model (generated after training)
 ```
 
 ---
@@ -280,17 +285,11 @@ Implemented CSV-to-image mapping, dynamic batch loading, nested directory traver
 
 ### High-Dimensional Classification
 
-Applied label encoding and one-hot vectorization for thousands of classes while training a 28M-parameter CNN architecture from scratch.
+Applied label encoding and one-hot vectorization for thousands of classes while training a **28M-parameter CNN architecture** from scratch.
 
 ### Model Analysis & Optimization
 
 Analyzed training limitations caused by class imbalance and sparse samples, documenting practical improvements involving transfer learning and scalable architectures.
-
----
-
-# 📄 Note
-
-This repository is intended for learning, experimentation, and portfolio demonstration purposes.
 
 ---
 
